@@ -35,11 +35,12 @@ void NixieDigit::printDecNum(int number)
     else
         digitalWrite(this->_pins[_pinCount - 1], LOW);
 
-    num = number % 5;
+    num = num % 5;
+    num++;
 
-    for (int i = _pinCount - 2; i >= 0; i--)
-    {
-        digitalWrite(this->_pins[i], (i % 2) ? HIGH : LOW);
-        num = num / 2;
-    }
+    digitalWrite(this->_pins[0], (num % 2) ? HIGH : LOW);
+    num = num / 2;
+    digitalWrite(this->_pins[1], (num % 2) ? HIGH : LOW);
+    num = num / 2;
+    digitalWrite(this->_pins[2], (num % 2) ? HIGH : LOW);
 }

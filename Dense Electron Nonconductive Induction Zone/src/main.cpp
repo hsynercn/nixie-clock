@@ -15,6 +15,6 @@ void loop()
     for(int i=0;i<10;i++)
     {
         digit1.printDecNum(i);
-        delay(100);
+        delay(20);
     }
 }
