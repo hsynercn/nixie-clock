@@ -22,25 +22,21 @@ void NixieDigit::clear()
 {
     for (int i = 0; i < this->_pinCount; i++)
     {
-        digitalWrite(this->_pins[3], LOW);
+        digitalWrite(this->_pins[i], LOW);
     }
 }
 
 void NixieDigit::printDecNum(int number)
 {
-    int num = number % 10;
-
-    if (num >= 5)
-        digitalWrite(this->_pins[_pinCount - 1], HIGH);
-    else
-        digitalWrite(this->_pins[_pinCount - 1], LOW);
-
-    num = num % 5;
+    int num = number % 10;    
+    digitalWrite(this->_pins[this->_pinCount - 1], (num / 5) ? HIGH : LOW);
+    
+    num %= 5;
     num++;
-
-    digitalWrite(this->_pins[0], (num % 2) ? HIGH : LOW);
-    num = num / 2;
-    digitalWrite(this->_pins[1], (num % 2) ? HIGH : LOW);
-    num = num / 2;
-    digitalWrite(this->_pins[2], (num % 2) ? HIGH : LOW);
+    
+    for(int i = 0 ; i < this->_pinCount - 1 ; i++)
+    {
+        digitalWrite(this->_pins[i], (num % 2) ? HIGH : LOW);    
+        num = num / 2;
+    }
 }
