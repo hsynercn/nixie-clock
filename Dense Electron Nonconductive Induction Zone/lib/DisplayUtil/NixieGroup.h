@@ -1,5 +1,5 @@
 /*
-  NixieDigit.h - Library for 4 pin encoded nixie display
+  NixieGroup.h - Library for 6 nixie digit display
   control.
 */
 #ifndef NixieClockGroup_h
