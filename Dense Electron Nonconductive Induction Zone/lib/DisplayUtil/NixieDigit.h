@@ -16,9 +16,9 @@ class NixieDigit
     void printDecNum(int number);
 
   private:
-    int _pins[4];
-    int _pinCount = 4;
-    int _base = 10;
+    int pins[4];
+    int pinCount = 4;
+    int base = 10;
 };
 
 #endif

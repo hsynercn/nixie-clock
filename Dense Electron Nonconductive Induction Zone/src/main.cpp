@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include "NixieDigit.h"
+#include "NixieGroup.h"
 
 NixieDigit digit1(23, 25, 27, 29);
 NixieDigit digit2(31, 33, 35, 37);
@@ -7,6 +8,7 @@ NixieDigit digit3(39, 41, 43, 45);
 NixieDigit digit4(47, 49, 51, 53);
 NixieDigit digit5(46, 48, 50, 52);
 NixieDigit digit6(38, 40, 42, 44);
+NixieGroup nixieGroup(&digit1, &digit2, &digit3, &digit4, &digit5, &digit6, 2700);
 
 void setup()
 {
@@ -26,39 +28,22 @@ void loop()
     int time = 2700;
     int period = 1000;
     Serial.print("LOOP");
-    int i = 0;
+    int sec, min,hour;
+    int totalSec = 0;
     while(1)
     {
-        digit1.printDecNum(i);
-        delayMicroseconds(time);
-        digit1.clear();
         
-        digit2.printDecNum(i);
-        delayMicroseconds(time);
-        digit2.clear();
-        
-        digit3.printDecNum(i);
-        delayMicroseconds(time);
-        digit3.clear();
-
-        digit4.printDecNum(i);
-        delayMicroseconds(time);
-        digit4.clear();
-
-        digit5.printDecNum(i);
-        delayMicroseconds(time);
-        digit5.clear();
-
-        digit6.printDecNum(i);
-        delayMicroseconds(time);
-        digit6.clear();
+        nixieGroup.printGroup();
 
         currentMillis = millis();
         if(currentMillis - startMillis >= period)
         {
             startMillis = currentMillis;
-            i++;
-            i %= 10;
+            totalSec = startMillis/1000;
+            sec = totalSec%60;
+            min =(totalSec/60)%60;
+            hour = totalSec/3600;
+            nixieGroup.setTime(sec, min, hour);
         }
         
     }

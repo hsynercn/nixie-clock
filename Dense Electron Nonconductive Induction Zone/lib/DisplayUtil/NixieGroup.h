@@ -2,23 +2,32 @@
   NixieGroup.h - Library for 6 nixie digit display
   control.
 */
-#ifndef NixieClockGroup_h
-#define NixieClockGroup_h
+#ifndef NixieGroup_h
+#define NixieGroup_h
 
 #include "Arduino.h"
 #include "NixieDigit.h"
 
 class NixieGroup
 {
-  public:
-    NixieGroup(int pinA, int pinB, int pinC, int pinD);
-    void initializePins();
-    void clearAll();
-    void printDecGroup();
+public:
+  NixieGroup(NixieDigit *digit1,
+             NixieDigit *digit2,
+             NixieDigit *digit3,
+             NixieDigit *digit4,
+             NixieDigit *digit5,
+             NixieDigit *digit6,
+             int frameMicrosecond);
+  void initializePins();
+  void clearAll();
+  void setTime(int sec,int min,int hour);
+  void printGroup();
 
-  private:
-    NixieDigit _nixDigits[6];
-    int _digitCount = 6;
+private:
+  NixieDigit *nixieDigits[6];
+  int digitCount = 6;
+  int digitVals[6];
+  int frameMicrosecond = 0;
 };
 
 #endif
