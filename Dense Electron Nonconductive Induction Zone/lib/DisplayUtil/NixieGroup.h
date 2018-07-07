@@ -22,12 +22,15 @@ public:
   void clearAll();
   void setTime(int sec,int min,int hour);
   void printGroup();
+  void randPrintGroup();
 
 private:
   NixieDigit *nixieDigits[6];
   int digitCount = 6;
   int digitVals[6];
   int frameMicrosecond = 0;
+  int antiPoisonSec = 10;
+  int antiPoisonIntervalMilisec = 200;
 };
 
 #endif

@@ -52,3 +52,33 @@ void NixieGroup::printGroup()
         this->nixieDigits[i]->clear();
     }
 }
+
+void NixieGroup::randPrintGroup()
+{
+
+    unsigned long startMillis = millis();
+    unsigned long currentMillis = startMillis;
+    unsigned long changeMillis = startMillis;
+    unsigned long totalDurationMsec = antiPoisonSec*1000;
+    int num = 0;
+    while((currentMillis - startMillis) < totalDurationMsec)
+    {
+        for(int i=0;i<this->digitCount;i++)
+        {
+            this->nixieDigits[i]->printDecNum(num);
+            delayMicroseconds(this->frameMicrosecond);
+            this->nixieDigits[i]->clear();
+        }
+        
+
+        if((currentMillis - changeMillis) >= this->antiPoisonIntervalMilisec)
+        {
+            num++;
+            num %= 10;
+            changeMillis = currentMillis;
+        }
+
+        currentMillis = millis();
+        
+    }
+}

@@ -24,10 +24,10 @@ void setup()
 void loop()
 {
     unsigned long startMillis = millis();
-    unsigned long currentMillis;
-    int time = 2700;
+    unsigned long currentMillis = startMillis;
+    unsigned long lastRandMillis = startMillis;
     int period = 1000;
-    Serial.print("LOOP");
+    int randPeirod = 20000;
     int sec, min,hour;
     int totalSec = 0;
     while(1)
@@ -36,7 +36,7 @@ void loop()
         nixieGroup.printGroup();
 
         currentMillis = millis();
-        if(currentMillis - startMillis >= period)
+        if((currentMillis - startMillis) >= period)
         {
             startMillis = currentMillis;
             totalSec = startMillis/1000;
@@ -44,6 +44,11 @@ void loop()
             min =(totalSec/60)%60;
             hour = totalSec/3600;
             nixieGroup.setTime(sec, min, hour);
+        }
+        if((currentMillis - lastRandMillis) >= randPeirod)
+        {
+            nixieGroup.randPrintGroup();
+            lastRandMillis = currentMillis;
         }
         
     }
