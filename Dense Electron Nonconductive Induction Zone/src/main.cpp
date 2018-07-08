@@ -11,6 +11,7 @@ NixieDigit digit6(38, 40, 42, 44);
 NixieGroup nixieGroup(&digit1, &digit2, &digit3, &digit4, &digit5, &digit6, 100);
 
 const int inputPin = A0;
+const int outpitPin = 2;
 const int inputWindow = 100;
 unsigned int inputSample;
 
@@ -24,6 +25,7 @@ void setup()
     digit5.initializePins();
     digit6.initializePins();
 
+    pinMode(outpitPin, OUTPUT);
     pinMode(inputPin, INPUT);
 
 }
@@ -41,11 +43,13 @@ void loop()
     unsigned int inputMax = 0;
     unsigned int inputMin = 1024;
 
+    int lastRepeat = 0;
     int repeat = 0;
     bool soundOnFlag = true;
-    
+    int a = 0;
     while(1)
     {
+
         if(soundOnFlag)
             nixieGroup.printGroup();
 
@@ -63,9 +67,11 @@ void loop()
             inputMax = inputSample;
         }
             
+        analogWrite(outpitPin, (255-((float)(currentMillis - startMillis)/(float)period)*255));
 
         if((currentMillis - startMillis) >= period)
         {
+              
             Serial.print("CPS:");
             Serial.print(repeat);
             if((inputMax - inputMin)>100)
@@ -79,6 +85,7 @@ void loop()
 
             inputMax = 0;
             inputMin = 1024;
+            lastRepeat = repeat; 
             repeat = 0;
 
             startMillis = currentMillis;
@@ -87,11 +94,13 @@ void loop()
             min =(totalSec/60)%60;
             hour = totalSec/3600;
             nixieGroup.setTime(sec, min, hour);
+
             if((currentMillis - lastRandMillis) >= randPeirod && soundOnFlag)
             {
                 nixieGroup.randPrintGroup();
                 lastRandMillis = currentMillis;
             }
+
         }
 
         
