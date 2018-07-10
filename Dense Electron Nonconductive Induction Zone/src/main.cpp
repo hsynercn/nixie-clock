@@ -2,6 +2,9 @@
 #include "NixieDigit.h"
 #include "NixieGroup.h"
 
+#include <Wire.h>
+#include "RTClib.h"
+
 NixieDigit digit1(23, 25, 27, 29);
 NixieDigit digit2(31, 33, 35, 37);
 NixieDigit digit3(39, 41, 43, 45);
@@ -9,6 +12,8 @@ NixieDigit digit4(47, 49, 51, 53);
 NixieDigit digit5(46, 48, 50, 52);
 NixieDigit digit6(38, 40, 42, 44);
 NixieGroup nixieGroup(&digit1, &digit2, &digit3, &digit4, &digit5, &digit6, 100);
+
+RTC_DS3231 rtc;
 
 const int inputPin = A0;
 const int outpitPin = 2;
@@ -27,6 +32,19 @@ void setup()
 
     pinMode(outpitPin, OUTPUT);
     pinMode(inputPin, INPUT);
+
+    if (! rtc.begin()) 
+    {
+        Serial.println("Couldn't find RTC");
+        while (1);
+    }
+
+    //Setup of time if RTC lost power or time is not set
+    if (rtc.lostPower()) 
+    {
+        //Sets the code compilation time to RTC DS3231
+        rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
+    }
 
 }
 
@@ -71,7 +89,8 @@ void loop()
 
         if((currentMillis - startMillis) >= period)
         {
-              
+            DateTime now = rtc.now();
+
             Serial.print("CPS:");
             Serial.print(repeat);
             if((inputMax - inputMin)>100)
@@ -90,9 +109,9 @@ void loop()
 
             startMillis = currentMillis;
             totalSec = startMillis/1000;
-            sec = totalSec%60;
-            min =(totalSec/60)%60;
-            hour = totalSec/3600;
+            sec = now.second();
+            min = now.minute();
+            hour = now.hour();
             nixieGroup.setTime(sec, min, hour);
 
             if((currentMillis - lastRandMillis) >= randPeirod && soundOnFlag)
