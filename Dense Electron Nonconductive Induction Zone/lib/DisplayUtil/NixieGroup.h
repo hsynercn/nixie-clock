@@ -18,7 +18,7 @@ public:
              NixieDigit *digit5,
              NixieDigit *digit6,
              int frameMicrosecond);
-  void initializePins();
+  void initializeDigits();
   void clearAll();
   void setTime(int sec,int min,int hour);
   void printGroup();
@@ -28,7 +28,7 @@ private:
   NixieDigit *nixieDigits[6];
   int digitCount = 6;
   int digitVals[6];
-  int frameMicrosecond = 0;
+  int frameMicrosecond = 2700000000;
   int antiPoisonSec = 10;
   int antiPoisonIntervalMilisec = 200;
 };

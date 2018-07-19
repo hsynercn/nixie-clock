@@ -2,19 +2,21 @@
 
 NixieDigit::NixieDigit(int pinA, int pinB, int pinC, int pinD)
 {
-    this->pins[0] = pinA;
-    this->pins[1] = pinB;
-    this->pins[2] = pinC;
-    this->pins[3] = pinD;
+    this->pins[3] = pinA;
+    this->pins[2] = pinB;
+    this->pins[1] = pinC;
+    this->pins[0] = pinD;
 
 }
 
 void NixieDigit::initializePins()
 {
+    Serial.println("OUTPUT");
     for (int i = 0; i < this->pinCount; i++)
     {
+        Serial.println(this->pins[i]);
         pinMode(this->pins[i], OUTPUT);
-        digitalWrite(this->pins[3], LOW);
+        digitalWrite(this->pins[i], LOW);
     }
 }
 
@@ -22,21 +24,92 @@ void NixieDigit::clear()
 {
     for (int i = 0; i < this->pinCount; i++)
     {
-        digitalWrite(this->pins[i], LOW);
+        digitalWrite(this->pins[i], HIGH);
     }
 }
 
 void NixieDigit::printDecNum(int number)
 {
+    
     int num = number % 10;    
-    digitalWrite(this->pins[this->pinCount - 1], (num / 5) ? HIGH : LOW);
-    
-    num %= 5;
-    num++;
-    
-    for(int i = 0 ; i < this->pinCount - 1 ; i++)
+    if(num == 0)
     {
-        digitalWrite(this->pins[i], (num % 2) ? HIGH : LOW);    
-        num = num / 2;
+        digitalWrite(this->pins[3], LOW);
+        digitalWrite(this->pins[2], LOW);
+        digitalWrite(this->pins[1], LOW);
+        digitalWrite(this->pins[0], LOW);
+        return;
+    }
+    if(num == 1)
+    {
+        digitalWrite(this->pins[3], LOW);
+        digitalWrite(this->pins[2], LOW);
+        digitalWrite(this->pins[1], LOW);
+        digitalWrite(this->pins[0], HIGH);
+        return;
+    }
+    if(num == 2)
+    {
+        digitalWrite(this->pins[3], LOW);
+        digitalWrite(this->pins[2], LOW);
+        digitalWrite(this->pins[1], HIGH);
+        digitalWrite(this->pins[0], LOW);
+        return;
+    }
+    if(num == 3)
+    {
+        digitalWrite(this->pins[3], LOW);
+        digitalWrite(this->pins[2], LOW);
+        digitalWrite(this->pins[1], HIGH);
+        digitalWrite(this->pins[0], HIGH);
+        return;
+    }
+    if(num == 4)
+    {
+        digitalWrite(this->pins[3], LOW);
+        digitalWrite(this->pins[2], HIGH);
+        digitalWrite(this->pins[1], LOW);
+        digitalWrite(this->pins[0], LOW);
+        return;
+    }
+    if(num == 5)
+    {
+        digitalWrite(this->pins[3], HIGH);
+        digitalWrite(this->pins[2], LOW);
+        digitalWrite(this->pins[1], LOW);
+        digitalWrite(this->pins[0], LOW);
+        return;
+    }
+    if(num == 6)
+    {
+        digitalWrite(this->pins[3], HIGH);
+        digitalWrite(this->pins[2], LOW);
+        digitalWrite(this->pins[1], LOW);
+        digitalWrite(this->pins[0], HIGH);
+        return;
+    }
+    if(num == 7)
+    {
+        digitalWrite(this->pins[3], HIGH);
+        digitalWrite(this->pins[2], LOW);
+        digitalWrite(this->pins[1], HIGH);
+        digitalWrite(this->pins[0], LOW);
+        return;
+    }
+    if(num == 8)
+    {
+        digitalWrite(this->pins[3], HIGH);
+        digitalWrite(this->pins[2], LOW);
+        digitalWrite(this->pins[1], HIGH);
+        digitalWrite(this->pins[0], HIGH);
+        return;
+    }
+    if(num == 9)
+    {
+        digitalWrite(this->pins[3], HIGH);
+        digitalWrite(this->pins[2], HIGH);
+        digitalWrite(this->pins[1], LOW);
+        digitalWrite(this->pins[0], LOW);
+        return;
     }
 }

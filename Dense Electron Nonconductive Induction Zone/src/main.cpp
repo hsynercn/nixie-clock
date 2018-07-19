@@ -5,30 +5,35 @@
 #include <Wire.h>
 #include "RTClib.h"
 
-NixieDigit digit1(23, 25, 27, 29);
+/*NixieDigit digit1(23, 25, 27, 29);
 NixieDigit digit2(31, 33, 35, 37);
 NixieDigit digit3(39, 41, 43, 45);
 NixieDigit digit4(47, 49, 51, 53);
 NixieDigit digit5(46, 48, 50, 52);
-NixieDigit digit6(38, 40, 42, 44);
+NixieDigit digit6(38, 40, 42, 44);*/
+
+NixieDigit digit1(23, 25, 27, 29);
+NixieDigit digit2(31, 33, 35, 37);
+NixieDigit digit3(39, 41, 43, 45);
+NixieDigit digit4(47, 49, 51, 53);
+NixieDigit digit5(52, 50, 48, 46);
+NixieDigit digit6(44, 42, 40, 38);
+
+
 NixieGroup nixieGroup(&digit1, &digit2, &digit3, &digit4, &digit5, &digit6, 100);
 
 RTC_DS3231 rtc;
 
 const int inputPin = A0;
-const int outpitPin = 2;
-const int inputWindow = 100;
+const int outpitPin = 13;
+
 unsigned int inputSample;
 
 void setup()
 {
+    pinMode(22, OUTPUT);
     Serial.begin(9600);
-    digit1.initializePins();
-    digit2.initializePins();
-    digit3.initializePins();
-    digit4.initializePins();
-    digit5.initializePins();
-    digit6.initializePins();
+    nixieGroup.initializeDigits();
 
     pinMode(outpitPin, OUTPUT);
     pinMode(inputPin, INPUT);
@@ -54,7 +59,7 @@ void loop()
     unsigned long currentMillis = startMillis;
     unsigned long lastRandMillis = startMillis;
     int period = 1000;
-    int randPeirod = 60000;
+    int randPeirod = 900;
     int sec, min,hour;
     int totalSec = 0;
 
@@ -68,7 +73,7 @@ void loop()
     while(1)
     {
 
-        if(soundOnFlag)
+        //if(soundOnFlag)
             nixieGroup.printGroup();
 
         repeat++;
@@ -85,11 +90,23 @@ void loop()
             inputMax = inputSample;
         }
             
-        analogWrite(outpitPin, (255-((float)(currentMillis - startMillis)/(float)period)*255));
+        analogWrite(outpitPin, (255-((float)(currentMillis - startMillis)/(float)period)*255));                                          
 
         if((currentMillis - startMillis) >= period)
         {
             DateTime now = rtc.now();
+            Serial.print("TEST");
+            Serial.print(now.year(), DEC);
+            Serial.print('/');
+            Serial.print(now.month(), DEC);
+            Serial.print('/');
+            Serial.print(now.day(), DEC);
+            Serial.print(now.hour(), DEC);
+            Serial.print(':');
+            Serial.print(now.minute(), DEC);
+            Serial.print(':');
+            Serial.print(now.second(), DEC);
+            Serial.println();
 
             Serial.print("CPS:");
             Serial.print(repeat);
@@ -106,24 +123,24 @@ void loop()
             inputMin = 1024;
             lastRepeat = repeat; 
             repeat = 0;
-
+            
             startMillis = currentMillis;
+            
             totalSec = startMillis/1000;
-            sec = now.second();
-            min = now.minute();
-            hour = now.hour();
-            nixieGroup.setTime(sec, min, hour);
-
+            //sec = now.second();
+            sec++;
+            //min = now.minute();
+            //hour = now.hour();
+            //nixieGroup.setTime(sec, min, hour);
+            nixieGroup.setTime(sec, sec, sec);
+            /*
             if((currentMillis - lastRandMillis) >= randPeirod && soundOnFlag)
             {
                 nixieGroup.randPrintGroup();
                 lastRandMillis = currentMillis;
-            }
+            }*/
 
         }
-
-        
-
-        
+    
     }    
 }

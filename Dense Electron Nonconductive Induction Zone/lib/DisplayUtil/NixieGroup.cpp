@@ -17,11 +17,11 @@ NixieGroup::NixieGroup( NixieDigit *digit1,
     this->frameMicrosecond = frameMicrosecond;
 }
 
-void NixieGroup::initializePins()
+void NixieGroup::initializeDigits()
 {
     for(int i=0;i<this->digitCount;i++)
     {
-        this->nixieDigits[0]->initializePins();
+        this->nixieDigits[i]->initializePins();
     }
 }
 
@@ -48,7 +48,7 @@ void NixieGroup::printGroup()
     for(int i=0;i<this->digitCount;i++)
     {
         this->nixieDigits[i]->printDecNum(this->digitVals[i]);
-        delayMicroseconds(this->frameMicrosecond);
+        delayMicroseconds(200000);
         this->nixieDigits[i]->clear();
     }
 }
