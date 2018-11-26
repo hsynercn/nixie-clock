@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include "NixieDigit.h"
 #include "NixieGroup.h"
+#include "SoundSensor.h"
 
 #include <Wire.h>
 #include "RTClib.h"
@@ -20,20 +21,25 @@ NixieDigit digit5(52, 50, 48, 46);
 NixieDigit digit6(44, 42, 40, 38);
 
 
-NixieGroup nixieGroup(&digit1, &digit2, &digit3, &digit4, &digit5, &digit6, 100);
+NixieGroup nixieGroup(&digit1, &digit2, &digit3, &digit4, &digit5, &digit6, 1000);
+
+SoundSensor soundSensor(A0);
 
 RTC_DS3231 rtc;
 
 const int inputPin = A0;
 const int outpitPin = 13;
 
-unsigned int inputSample;
+unsigned int inputDiff;
 
 void setup()
 {
     pinMode(22, OUTPUT);
     Serial.begin(9600);
     nixieGroup.initializeDigits();
+    soundSensor.initializeSensor();
+
+    nixieGroup.setSoundSensor(&soundSensor);
 
     pinMode(outpitPin, OUTPUT);
     pinMode(inputPin, INPUT);
@@ -59,12 +65,9 @@ void loop()
     unsigned long currentMillis = startMillis;
     unsigned long lastRandMillis = startMillis;
     int period = 1000;
-    int randPeirod = 900;
+    int randPeirod = 60;
     int sec, min,hour;
     int totalSec = 0;
-
-    unsigned int inputMax = 0;
-    unsigned int inputMin = 1024;
 
     int lastRepeat = 0;
     int repeat = 0;
@@ -73,22 +76,11 @@ void loop()
     while(1)
     {
 
-        //if(soundOnFlag)
-            nixieGroup.printGroup();
+        if(soundOnFlag)
+            nixieGroup.printGroup(inputPin);
 
         repeat++;
         currentMillis = millis();
-
-        inputSample = analogRead(inputPin);
-
-        if(inputMin>inputSample)
-        {
-            inputMin = inputSample;
-        }
-        if(inputMax<inputSample)
-        {
-            inputMax = inputSample;
-        }
             
         analogWrite(outpitPin, (255-((float)(currentMillis - startMillis)/(float)period)*255));                                          
 
@@ -109,36 +101,43 @@ void loop()
             Serial.println();
 
             Serial.print("CPS:");
-            Serial.print(repeat);
-            if((inputMax - inputMin)>100)
-            {
-                soundOnFlag = !soundOnFlag;
-                Serial.print(" Diff: ");
-                Serial.print(inputMax - inputMin);
-                Serial.println();
-            }
+            Serial.println(repeat);
+            
+            Serial.println();
+            Serial.print(" Diff: ");
+            Serial.print(inputDiff);
             Serial.println();
 
-            inputMax = 0;
-            inputMin = 1024;
+            if(soundSensor.isUserCmdReceived() == true)
+            {
+                soundOnFlag = !soundOnFlag;
+                soundSensor.reset();
+            }
+
             lastRepeat = repeat; 
             repeat = 0;
             
             startMillis = currentMillis;
-            
             totalSec = startMillis/1000;
-            //sec = now.second();
-            sec++;
-            //min = now.minute();
-            //hour = now.hour();
-            //nixieGroup.setTime(sec, min, hour);
-            nixieGroup.setTime(sec, sec, sec);
-            /*
-            if((currentMillis - lastRandMillis) >= randPeirod && soundOnFlag)
+
+            if(soundOnFlag == true)
+            {
+                sec = now.second();
+                min = now.minute();
+                hour = now.hour();
+                nixieGroup.setTime(sec, min, hour);
+            }
+            else
+            {
+                nixieGroup.clearAll();
+            }
+            //nixieGroup.setTime(sec, sec, sec);
+            
+            if(abs(currentMillis - lastRandMillis)/1000 >= randPeirod && soundOnFlag)
             {
                 nixieGroup.randPrintGroup();
                 lastRandMillis = currentMillis;
-            }*/
+            }
 
         }
     

@@ -17,6 +17,11 @@ NixieGroup::NixieGroup( NixieDigit *digit1,
     this->frameMicrosecond = frameMicrosecond;
 }
 
+void NixieGroup::setSoundSensor(SoundSensor *soundSensor)
+{
+    this->soundSensor = soundSensor;
+}
+
 void NixieGroup::initializeDigits()
 {
     for(int i=0;i<this->digitCount;i++)
@@ -43,14 +48,25 @@ void NixieGroup::setTime(int sec,int min,int hour)
     this->digitVals[5] = hour/10;
 }
 
-void NixieGroup::printGroup()
+ unsigned int NixieGroup::printGroup(int inputPin)
 {
+    unsigned int inputMax = 0;
+    unsigned int inputMin = 1024;
+    unsigned int inputSample = 0;
     for(int i=0;i<this->digitCount;i++)
     {
         this->nixieDigits[i]->printDecNum(this->digitVals[i]);
-        delayMicroseconds(200000);
+        long startMicro = micros();
+        long currentMicro = micros();
+        while((currentMicro-startMicro) < 1000)
+        {
+            this->soundSensor->read();
+            
+            currentMicro = micros();
+        }
         this->nixieDigits[i]->clear();
     }
+    return inputMax - inputMin;
 }
 
 void NixieGroup::randPrintGroup()
@@ -70,7 +86,6 @@ void NixieGroup::randPrintGroup()
             this->nixieDigits[i]->clear();
         }
         
-
         if((currentMillis - changeMillis) >= this->antiPoisonIntervalMilisec)
         {
             num++;
@@ -79,6 +94,5 @@ void NixieGroup::randPrintGroup()
         }
 
         currentMillis = millis();
-        
     }
 }

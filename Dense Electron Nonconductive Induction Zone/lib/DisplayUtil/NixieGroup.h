@@ -7,6 +7,7 @@
 
 #include "Arduino.h"
 #include "NixieDigit.h"
+#include "SoundSensor.h"
 
 class NixieGroup
 {
@@ -21,8 +22,9 @@ public:
   void initializeDigits();
   void clearAll();
   void setTime(int sec,int min,int hour);
-  void printGroup();
+  unsigned int printGroup(int inputPin);
   void randPrintGroup();
+  void setSoundSensor(SoundSensor *soundSensor);
 
 private:
   NixieDigit *nixieDigits[6];
@@ -31,6 +33,7 @@ private:
   int frameMicrosecond = 2700000000;
   int antiPoisonSec = 10;
   int antiPoisonIntervalMilisec = 200;
+  SoundSensor *soundSensor;
 };
 
 #endif

@@ -22,10 +22,10 @@ void NixieDigit::initializePins()
 
 void NixieDigit::clear()
 {
-    for (int i = 0; i < this->pinCount; i++)
-    {
-        digitalWrite(this->pins[i], HIGH);
-    }
+    digitalWrite(this->pins[3], HIGH);
+    digitalWrite(this->pins[2], HIGH);
+    digitalWrite(this->pins[1], HIGH);
+    digitalWrite(this->pins[0], HIGH);
 }
 
 void NixieDigit::printDecNum(int number)
