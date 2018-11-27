@@ -72,15 +72,19 @@ void loop()
     int lastRepeat = 0;
     int repeat = 0;
     bool soundOnFlag = true;
-    int a = 0;
+    soundSensor.reset();
     while(1)
     {
-
+        
         if(soundOnFlag)
+        {
             nixieGroup.printGroup(inputPin);
+        }
         else
+        {
             soundSensor.read();
-
+        }
+        
         repeat++;
         currentMillis = millis();
             
@@ -109,9 +113,12 @@ void loop()
             Serial.print(" Diff: ");
             Serial.print(inputDiff);
             Serial.println();
+            Serial.println("Sound flag:");
+            Serial.println(soundOnFlag);
 
             if(soundSensor.isUserCmdReceived() == true)
             {
+                Serial.println("COMMAND RECEIVED");
                 soundOnFlag = !soundOnFlag;
                 soundSensor.reset();
             }
@@ -133,7 +140,6 @@ void loop()
             {
                 nixieGroup.clearAll();
             }
-            //nixieGroup.setTime(sec, sec, sec);
             
             if(abs(currentMillis - lastRandMillis)/1000 >= randPeirod && soundOnFlag)
             {

@@ -19,7 +19,6 @@ void SoundSensor::reset()
 
 void SoundSensor::read()
 {
-    Serial.print("SOUNDSENSOR READ");
     int inputSample = analogRead(this->inputPin);
     if(this->minSample>inputSample)
     {
@@ -42,5 +41,12 @@ unsigned int SoundSensor::getMinMaxDiff()
 
 bool SoundSensor::isUserCmdReceived()
 {
-    return this->minMaxDiff >= this->thresholdLimit;
+    if(this->minMaxDiff >= this->thresholdLimit)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
