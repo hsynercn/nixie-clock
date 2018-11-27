@@ -78,6 +78,8 @@ void loop()
 
         if(soundOnFlag)
             nixieGroup.printGroup(inputPin);
+        else
+            soundSensor.read();
 
         repeat++;
         currentMillis = millis();
