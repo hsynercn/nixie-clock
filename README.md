@@ -1,2 +1,2 @@
-# Dense-Electron-Nonconductive-Induction-Zone
+# Lights of Diagones
 Lifelong
