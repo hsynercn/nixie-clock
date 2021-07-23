@@ -1,5 +1,8 @@
+# Nixie Clock From Scratch
+Several years ago I decided to build a 6-digit nixie clock. As a hobby project it took quite some time. I tired to summarize my experience as a humble hobbyist.
+
 # Tube Purchase
-Several years ago I decided to build a 6-digit nixie clock from scratch. After some research I found a tube vendor which can deliver to Turkey/Istanbul. I purchased a dozen of of IN-12A nixie tubes and IN-12 / IN-15 / IV-22 sockets. If I remember correctly I paid 2.5 USD for one tube and 1.0 USD one socket. I bought them in March 2018, today (July 2021) tubes are 12.0 USD, sockets are 2.0 USD. If you have any intention to build a clock don't wait.
+After some research I found a tube vendor which can deliver to Turkey/Istanbul. I purchased a dozen of of IN-12A nixie tubes and IN-12 / IN-15 / IV-22 sockets. If I remember correctly I paid 2.5 USD for one tube and 1.0 USD one socket. I bought them in March 2018, today (July 2021) tubes are 12.0 USD, sockets are 2.0 USD. If you have any intention to build a clock don't wait.
 
 Nearly one month later I received the package with 4 extra tubes. They were covered in dirt, some of them had mud between their pins. Even today I am not sure if they are salvaged from some Soviet era contaminated scrapyard.
 
