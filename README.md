@@ -35,6 +35,47 @@ For every digit 4 bits are needed, I used a pair of CD74HC238E 3-to-8 line decod
 
 ![image](https://user-images.githubusercontent.com/28985966/126802136-b6207000-11dc-4c02-a50a-a848098fd19b.png)
 
+Wired up an Arduino Uno
+
+[![Second video](https://img.youtube.com/vi/qUaKFGdwrgs/0.jpg)](https://www.youtube.com/watch?v=qUaKFGdwrgs)
+
+5 boards more
+
+![image](https://user-images.githubusercontent.com/28985966/126812323-0b6f56cc-1902-4d49-902f-fc64c002466a.png)
+
+# Main Board
+I completed the digit drivers and started to implement the main board for MCU. I decided to use Arduino Mega with an external clock. Simply distributed the pins to cable connections. Until this point I used jumpers or crocodile cables to connect boards together and used breadboards for Arduino IO connections, after completing the main board I pressed flat ribbon cables for every connection. 
+
+Normally specialized IDC crimp tools are used for cable ends, but I used a cheap bench clamp.
+
+I strongly recommend using propeperly insulated connections while working with high voltage!  
+
+![image](https://user-images.githubusercontent.com/28985966/126817051-ff466bec-cbae-478d-8d72-c545ab555c05.png)
+
+# Assembly
+
+Connected tubes to driver boards with these isolated socket/connectors. Original sockets are the best option for maintainability. 
+
+![image](https://user-images.githubusercontent.com/28985966/126826947-dad2f21c-a53d-4282-b63c-497df5c775f2.png)
+
+Fully assembled. March 2018 to October 2018.
+
+![image](https://user-images.githubusercontent.com/28985966/126828447-6382e6bd-ea40-4106-a66f-5c6e51df6fba.png)
+
+Desk for scale
+
+![image](https://user-images.githubusercontent.com/28985966/126834625-3ebe124a-7c2f-4d89-baaf-41c744d922fb.png)
+
+
+# Programming
+This is the easy part, at least you can't electrocute yourself. 
+
+Arduino Mega just simly applies voltage to each digit. Refreshing all tubes with a proper frame rate creates a solid view. Additionally I used a sound sensor for clock display activation. 
+
+Final result
+
+![dark_theme](https://user-images.githubusercontent.com/28985966/126835887-5a8c6e0a-f48e-4b84-ac48-84d94cca40b7.gif)
+
 
 
 
