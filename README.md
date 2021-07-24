@@ -45,6 +45,11 @@ For every digit 4 bits are needed, I used a pair of CD74HC238E 3-to-8 line decod
 
 ![image](https://user-images.githubusercontent.com/28985966/126802136-b6207000-11dc-4c02-a50a-a848098fd19b.png)
 
+
+![digit_](https://user-images.githubusercontent.com/28985966/126866260-5ebb7ba5-b2e4-466d-9102-1b6925e7c87b.gif)
+
+
+
 Wired up an Arduino Uno
 
 [![Second video](https://img.youtube.com/vi/qUaKFGdwrgs/0.jpg)](https://www.youtube.com/watch?v=qUaKFGdwrgs)
