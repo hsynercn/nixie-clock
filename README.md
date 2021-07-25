@@ -62,7 +62,7 @@ All 6 boards
 ## Main Board
 I completed the digit drivers and started to implement the main board for MCU. I decided to use an Arduino Mega with an external clock. Simply distributed the pins to cable connections. Until this point I used jumpers or crocodile cables to connect boards together and used breadboards for Arduino IO connections, after completing the main board I pressed flat ribbon cables for every connection. 
 
-Normally specialized IDC crimp tools are used for cable connectors, but I used a cheap bench clamp.
+Normally specialized IDC crimping tools are used for cable connectors, but I used a cheap bench clamp.
 
 I strongly recommend using properly insulated connections while working with high voltage!  
 
