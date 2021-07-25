@@ -51,9 +51,9 @@ In my case for every digit 4 bits are needed, I used a pair of CD74HC238E 3-to-8
 
 
 
-Wired up an Arduino Uno
+Wired up an Arduino Uno (video)
 
-[![Second video](https://img.youtube.com/vi/qUaKFGdwrgs/0.jpg)](https://www.youtube.com/watch?v=qUaKFGdwrgs)
+[![video](https://img.youtube.com/vi/qUaKFGdwrgs/0.jpg)](https://www.youtube.com/watch?v=qUaKFGdwrgs)
 
 All 6 boards
 
