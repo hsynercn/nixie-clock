@@ -23,12 +23,13 @@ Nearly one month later I received the package with 4 extra tubes. They were cove
 
 I soldered a [555 timer power supply](https://www.ledsales.com.au/pdf/555_kit.pdf) from basic components. I couldn't find exact parts from local sources and bought 2-3 different inductors, at some point the circuit reached max 180V. First supply board worked for a long time until I shorted it accidently, made a second board with spare parts and added a static cooler to the MOSFET.
 
-This is a design choice, you can make one from basic parts or purchase a card from some vendor. If you are concerned about voltage range or you don't have abundant time and patience I recommend buying one.
+This is a personal design choice, you can make one from basic parts or purchase a card from some vendor. If you are concerned about voltage range or you don't have abundant time and patience I recommend buying one.
 
 First supply board with extra symbol tubes
 
 ![image](https://user-images.githubusercontent.com/28985966/126798058-14f500a7-ee8d-49b4-8724-e4e36494da7a.png)
 
+9V IN -> 170V OUT
 
 ![image](https://user-images.githubusercontent.com/28985966/126801428-0ff7941b-40e3-44da-b27a-6de26ce5b278.png)
 
@@ -39,9 +40,9 @@ Second board with cooler
 
 ## Driver
 
-After constructing a sufficient power supply I designed a very redundant tube driver. I wanted to create some modular high voltage drivers for future projects.  
+After constructing a sufficient power supply I designed a very redundant tube driver group. High voltage power supply can't run multiple tubes simultaneously, so multiplexing the current is a necessity. There are several methods, I wanted to create some modular high voltage drivers for future projects back then and designed a modular one. Duplicated the driver for each tube. I could have selected a more compact design with much less components, but I didn’t want to permanently connect all 6 tubes to one single board. Again this is a personal design choice. 
 
-For every digit 4 bits are needed, I used a pair of CD74HC238E 3-to-8 line decoders for every tube and used high voltage transistors to enable the nixie tube's specific pin/number. 
+In my case for every digit 4 bits are needed, I used a pair of CD74HC238E 3-to-8 line decoders for every tube and used high voltage transistors to enable the nixie tube's specific pin/number. 
 
 ![image](https://user-images.githubusercontent.com/28985966/126802136-b6207000-11dc-4c02-a50a-a848098fd19b.png)
 
@@ -82,14 +83,16 @@ Desk for scale
 ![image](https://user-images.githubusercontent.com/28985966/126834625-3ebe124a-7c2f-4d89-baaf-41c744d922fb.png)
 
 
-## Programming
-This is the easy part, at least you can't electrocute yourself. 
+## Software
+This is the easy part, at least you can't electrocute yourself.
 
 Arduino Mega just simply applies voltage to each digit. Refreshing all tubes with a proper frame rate creates a solid view. Additionally I used a sound sensor for clock display activation. 
 
 Final result
 
 ![dark_theme](https://user-images.githubusercontent.com/28985966/126835887-5a8c6e0a-f48e-4b84-ac48-84d94cca40b7.gif)
+
+
 
 
 
