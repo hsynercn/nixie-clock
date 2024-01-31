@@ -1,0 +1,45 @@
+repo_name: hsynercn/nixie-clock
+report_id: c738ce57b72280d885b9db08cc0eb92b
+version: 0.1
+repo_type: Public
+timestamp: '2024-01-31T10:53:15+00:00'
+requested_by: hsynercn
+provider: github
+branch: master
+detected_tools_count: 3
+tools:
+- name: C++
+  description: Has imperative, object-oriented and generic programming features, while
+    also providing the facilities for low level memory manipulation
+  website_url: http://www.cplusplus.com/
+  open_source: true
+  hosted_saas: false
+  category: Languages & Frameworks
+  sub_category: Languages
+  image_url: https://img.stackshare.io/service/1049/cplusplus.png
+  detection_source_url: https://github.com/hsynercn/nixie-clock
+  detection_source: Repo Metadata
+- name: Git
+  description: Fast, scalable, distributed revision control system
+  website_url: http://git-scm.com/
+  open_source: true
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Version Control System
+  image_url: https://img.stackshare.io/service/1046/git.png
+  detection_source_url: https://github.com/hsynercn/nixie-clock
+  detection_source: Repo Metadata
+- name: Travis CI
+  description: A hosted continuous integration service for open source and private
+    projects
+  website_url: http://travis-ci.com/
+  open_source: false
+  hosted_saas: true
+  category: Build, Test, Deploy
+  sub_category: Continuous Integration
+  image_url: https://img.stackshare.io/service/460/Lu6cGu0z_400x400.png
+  detection_source_url: https://github.com/hsynercn/nixie-clock/blob/master/Dense
+    Electron Nonconductive Induction Zone/.travis.yml
+  detection_source: Dense Electron Nonconductive Induction Zone/.travis.yml
+  last_updated_by: hsynercn
+  last_updated_on: 2018-07-03 20:37:23.000000000 Z
